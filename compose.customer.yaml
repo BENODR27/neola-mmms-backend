@@ -1,0 +1,13 @@
+# Combine with compose.independent.yaml for a licensed customer installation.
+services:
+  mmms:
+    build:
+      target: customer
+    environment:
+      NODE_ENV: production
+      NEOLA_CUSTOMER_DEPLOYMENT: 'true'
+      CONTROL_PLANE_MODE: subscription
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]

@@ -21,7 +21,8 @@
     "docker:build": "docker compose --env-file .env.deploy -f compose.independent.yaml build",
     "docker:up": "docker compose --env-file .env.deploy -f compose.independent.yaml up -d --build",
     "docker:logs": "docker compose --env-file .env.deploy -f compose.independent.yaml logs --tail=100 -f",
-    "docker:migrate": "docker compose --env-file .env.deploy -f compose.independent.yaml --profile maintenance run --rm --build migrate"
+    "docker:migrate": "docker compose --env-file .env.deploy -f compose.independent.yaml --profile maintenance run --rm --build migrate",
+    "docker:customer": "docker compose --env-file .env.deploy -f compose.independent.yaml -f compose.customer.yaml up -d --build"
   },
   "dependencies": {
     "cors": "^2.8.5",
