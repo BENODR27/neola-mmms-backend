@@ -18,10 +18,7 @@ services:
       - path: .env.container
         format: raw
     ports:
-      - '${BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-5003}:7010'
-    networks:
-      platform:
-        aliases: [mmms]
+      - '${BIND_ADDRESS:-0.0.0.0}:${HTTP_PORT:-5003}:7010'
   migrate:
     profiles: [maintenance]
     build:
@@ -31,8 +28,3 @@ services:
       - path: .env.container
         format: raw
     command: ['sh', '-ec', 'npm run db:migrate']
-    networks: [platform]
-networks:
-  platform:
-    external: true
-    name: ${NEOLA_NETWORK:-neola-platform}
