@@ -1,0 +1,38 @@
+# Independently managed service. No databases, seeds or sibling build contexts.
+name: neola-mmms-backend
+services:
+  mmms:
+    build:
+      context: .
+      target: runtime
+    image: ${IMAGE:-neola-mmms-backend:local}
+    restart: unless-stopped
+    stop_grace_period: 30s
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:7010/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    env_file:
+      - path: .env.container
+        format: raw
+    ports:
+      - '${BIND_ADDRESS:-127.0.0.1}:${HTTP_PORT:-5003}:7010'
+    networks:
+      platform:
+        aliases: [mmms]
+  migrate:
+    profiles: [maintenance]
+    build:
+      context: .
+      target: init
+    env_file:
+      - path: .env.container
+        format: raw
+    command: ['sh', '-ec', 'npm run db:migrate']
+    networks: [platform]
+networks:
+  platform:
+    external: true
+    name: ${NEOLA_NETWORK:-neola-platform}
