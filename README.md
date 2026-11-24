@@ -48,4 +48,3 @@ Run `npm test` for domain-rule and scope regression tests. Database and browser 
 Maintenance workflows use explicit controllers and transactional rule services. Use the validated hierarchy, movement workflow, inspection/calibration completion, inventory transaction, expense and configuration endpoints; finalized records retain their evidence. The old generic CRUD editor is no longer the frontend workflow implementation.
 
 Run `npm run test:integration` using the guarded disposable setup in [MMMS-TESTING.md](../docs/MMMS-TESTING.md). See [customization](../docs/MMMS-CUSTOMIZATION.md) for categories, recurrence rules, required fields, approval restrictions, notification events and feature ownership. Production databases and IAM role grants require your deployment configuration.
-# neola-mmms-backend
